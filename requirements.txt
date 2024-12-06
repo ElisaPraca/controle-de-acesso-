@@ -1,0 +1,6 @@
+Flask
+pandas
+qrcode[pil]
+openpyxl
+gunicorn
+                                                       
