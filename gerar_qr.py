@@ -1,8 +1,19 @@
 import qrcode
+import os
 
-def gerar_qr(nome):
-    # Gerar a URL de aprovação para o convidado
-    url = f"http://localhost:5000/approve/{nome}"  # Usando localhost, mas substitua pela URL de produção
-    qr = qrcode.make(url)  # Gera o QR Code com a URL
-    qr.save(f"{nome}_qr.png")  # Salva o QR Code com o nome do convidado
-    print(f"QR Code gerado para {nome}: {nome}_qr.png")
+def gerar_qr(data):
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(data)
+    qr.make(fit=True)
+
+    # Gera a imagem do QR code
+    img = qr.make_image(fill='black', back_color='white')
+
+    # Salva o arquivo na pasta 'static'
+    img_path = os.path.join('static', f"{data}_qr.png")
+    img.save(img_path)
